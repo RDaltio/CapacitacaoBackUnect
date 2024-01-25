@@ -11,7 +11,6 @@ class usersController {
         try {
             const user = new users(req.body);
 
-            // Hash da senha
             const hashedPassword = await bcrypt.hash(user.password, 10);
             user.password = hashedPassword;
 
@@ -30,7 +29,6 @@ class usersController {
         const { email, password } = req.body;
 
         try {
-            // Verifica se o usuário existe no banco de dados
             const user = await users.findOne({ email });
 
             if (!user) {
@@ -38,7 +36,6 @@ class usersController {
                 return res.status(401).send({ message: 'Credenciais inválidas.' });
             }
 
-            // Verifica se a senha fornecida corresponde à senha armazenada no banco de dados
             const passwordMatch = await bcrypt.compare(password, user.password);
 
             if (!passwordMatch) {
@@ -46,7 +43,6 @@ class usersController {
                 return res.status(401).send({ message: 'Credenciais inválidas.' });
             }
 
-            // Se as credenciais são válidas, você pode gerar um token JWT
             const token = this.generateToken(user);
 
             res.status(200).json({ message: 'Login bem-sucedido!', token });
@@ -60,20 +56,18 @@ class usersController {
         const payload = {
             userId: user._id,
             email: user.email,
-            // Adicione outros dados do usuário que você deseja incluir no token
         };
 
         const secret = process.env.SECRET || 'DefaultSecretValue';
-        const token = jwt.sign(payload, secret, { expiresIn: '1d' }); // Substitua 'seuSegredo' por uma chave secreta mais segura
+        const token = jwt.sign(payload, secret, { expiresIn: '1d' });
 
         return token;
     };
 
     static deleteUser = async (req, res) => {
-        const userId = req.user.userId; // Você pode obter o ID do usuário do token
+        const userId = req.user.userId;
     
         try {
-          // Desativa a conta, mas não a exclui fisicamente
           await users.findByIdAndUpdate(userId, { active: false });
     
           res.status(200).send({ message: 'Conta excluída com sucesso.' });

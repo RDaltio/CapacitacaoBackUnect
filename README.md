@@ -27,13 +27,13 @@ Bem-vindo à API Pokémon, uma plataforma que oferece funcionalidades para regis
 3. **Configure as Variáveis de Ambiente:**
 
 
+   Dentro do arquivo dbConnect.js na pasta config, altere o link para o seu banco na linha "mongoose.connect(`mongodb+srv://${dbUsuario}:${dbSenha}@cluster0.mvetumo.mongodb.net/?retryWrites=true&w=majority`);"
+
    Crie um arquivo .env na raiz do projeto e adicione as seguintes variáveis:
     ```bash
    DB_USER=USER_DO_SEU_BANCO_DE_DADOS
    DB_PASS=PASSWORD_DO_SEU_BANCO_DE_DADOS
    SECRET=SUA_CHAVE_SECRETA_JWT
-
-  Dentro do arquivo dbConnect.js na pasta config, altere o link para o seu banco na linha "mongoose.connect(`mongodb+srv://${dbUsuario}:${dbSenha}@cluster0.mvetumo.mongodb.net/?retryWrites=true&w=majority`);"
 
 4. **Execute o Servidor:**
    ```bash

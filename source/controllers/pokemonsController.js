@@ -15,7 +15,6 @@ class pokemonsController {
 
     static registerPokemon = (req, res) => {
         const token = req.headers.authorization;
-        console.log('Token enviado com a requisição:', token);
 
         let pokemon = new pokemons(req.body);
 

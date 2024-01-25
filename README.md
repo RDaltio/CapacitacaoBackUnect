@@ -29,7 +29,7 @@ Bem-vindo à API Pokémon, uma plataforma que oferece funcionalidades para regis
 
    Dentro do arquivo dbConnect.js na pasta config, altere o link para o seu banco na linha "mongoose.connect(`mongodb+srv://${dbUsuario}:${dbSenha}@cluster0.mvetumo.mongodb.net/?retryWrites=true&w=majority`);"
 
-   Crie um arquivo .env na raiz do projeto e adicione as seguintes variáveis:
+   Após isso crie um arquivo .env na raiz do projeto e adicione as seguintes variáveis:
     ```bash
    DB_USER=USER_DO_SEU_BANCO_DE_DADOS
    DB_PASS=PASSWORD_DO_SEU_BANCO_DE_DADOS

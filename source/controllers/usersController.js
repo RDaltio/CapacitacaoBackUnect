@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 class usersController {
+    static loginAttempts = {};
 
     static registerUser = async (req, res) => {
         try {
@@ -27,12 +28,27 @@ class usersController {
 
     static loginUser = async (req, res) => {
         const { email, password } = req.body;
+        const maxLoginAttempts = 3;
+        const lockoutPeriod = 5 * 60 * 1000;
 
         try {
+            const lastAttempt = this.loginAttempts[email] || { attempts: 0, timestamp: 0 };
+            const elapsedTime = Date.now() - lastAttempt.timestamp;
+
+            if (lastAttempt.attempts >= maxLoginAttempts && elapsedTime < lockoutPeriod) {
+                return res.status(401).json({
+                    message: `Número máximo de tentativas excedido. A conta foi temporariamente bloqueada. Tente novamente após ${Math.ceil((lockoutPeriod - elapsedTime) / 1000)} segundos.`,
+                });
+            }
+
             const user = await users.findOne({ email });
 
             if (!user) {
                 console.log('Usuário não encontrado.');
+                this.loginAttempts[email] = {
+                    attempts: lastAttempt.attempts + 1,
+                    timestamp: Date.now(),
+                };
                 return res.status(401).send({ message: 'Credenciais inválidas.' });
             }
 
@@ -40,10 +56,18 @@ class usersController {
 
             if (!passwordMatch) {
                 console.log('Senha incorreta.');
-                return res.status(401).send({ message: 'Credenciais inválidas.' });
+                this.loginAttempts[email] = {
+                    attempts: lastAttempt.attempts + 1,
+                    timestamp: Date.now(),
+                };
+                return res.status(401).json({
+                    message: `Credenciais inválidas. Tentativas restantes: ${maxLoginAttempts - this.loginAttempts[email].attempts}`,
+                });
             }
 
             const token = this.generateToken(user);
+
+            delete this.loginAttempts[email];
 
             res.status(200).json({ message: 'Login bem-sucedido!', token });
         } catch (err) {

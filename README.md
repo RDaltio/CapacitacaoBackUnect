@@ -33,7 +33,7 @@ Bem-vindo à API Pokémon, uma plataforma que oferece funcionalidades para regis
    DB_PASS=PASSWORD_DO_SEU_BANCO_DE_DADOS
    SECRET=SUA_CHAVE_SECRETA_JWT
 
-Dentro do arquivo dbConnect.js na pasta config, altere o link para o seu banco na linha "mongoose.connect(`mongodb+srv://${dbUsuario}:${dbSenha}@cluster0.mvetumo.mongodb.net/?retryWrites=true&w=majority`);"
+  Dentro do arquivo dbConnect.js na pasta config, altere o link para o seu banco na linha "mongoose.connect(`mongodb+srv://${dbUsuario}:${dbSenha}@cluster0.mvetumo.mongodb.net/?retryWrites=true&w=majority`);"
 
 4. **Execute o Servidor:**
    ```bash

@@ -17,8 +17,8 @@ Bem-vindo à API Pokémon, uma plataforma que oferece funcionalidades para regis
 
 1. **Clone o Repositório:**
    ```bash
-   git clone https://github.com/seu-usuario/api-pokemon.git
-   cd api-pokemon
+   git clone https://github.com/RDaltio/CapacitacaoBackUnect.git
+   cd CapacitacaoBackUnect
 
 2. **Instale as Dependências:**
    ```bash
